@@ -1,0 +1,49 @@
+package entite;
+import java.io.Serializable;
+import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+@Entity
+public class Auteur implements Serializable{
+@Id
+private String id;
+private String nom;
+@ManyToMany(mappedBy="auteurs")
+private Set<Livre> livres;
+
+//Constructeurs avec paramètres
+
+
+public Auteur(String id, String nom, Set<Livre> livres) {
+	super();
+	this.id = id;
+	this.nom = nom;
+	this.livres = livres;
+}
+
+
+//Getters et setters
+public String getId() {
+	return id;
+}
+public void setId(String id) {
+	this.id = id;
+}
+public String getNom() {
+	return nom;
+}
+public void setNom(String nom) {
+	this.nom = nom;
+}
+public Set<Livre> getLivres() {
+	return livres;
+}
+public void setLivres(Set<Livre> livres) {
+	this.livres = livres;
+}
+
+
+
+}

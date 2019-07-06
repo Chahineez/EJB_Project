@@ -1,0 +1,45 @@
+
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
+import entites.Auteur;
+import entites.Livre;
+import session.GestionBeanRemote;
+
+public class ClientGestion {
+
+	public static void main(String[] args) {
+					 
+					try { 
+						Properties p= new Properties(); 
+						p.put(Context.URL_PKG_PREFIXES,"org.jboss.ejb.client.naming");
+						InitialContext context = new InitialContext(p); 
+						GestionBeanRemote proxy = (GestionBeanRemote) context.lookup("ejb:/Gestion_Livres/GestionLivres!session.GestionLivresRemote");
+						 
+						//ArrayList<String> list=new ArrayList<String>()
+						List<Auteur> auteurs= new ArrayList<Auteur>();
+						//auteurs.add(new Auteur("123","Bass"));
+						//auteurs.add(new Auteur("125","Clements"));
+						//auteurs.add(new Auteur("127","Kazman"));
+						auteurs.add(new Auteur("1278","claude"));
+						
+						Livre livre = new Livre("Java",auteurs);
+						proxy.ajouterLivre(livre);
+						
+						List<Livre> livres=proxy.listerTousLesLivres();
+						for (Livre l:livres){
+							System.out.println(l.getIntitule());
+						}
+						} catch (NamingException e) {
+						e.printStackTrace();
+					}
+
+		}
+			
+	}
